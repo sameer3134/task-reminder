@@ -6,7 +6,6 @@ import { User } from "./main";
 
 
 export default function TodoItem({ todo }: { todo: User }) {
-  const [loading, setLoading] = useState(false);
   const [changeTitle,setChangeTitle]=useState(false)
   const [changeTodo,setChangeTodo]=useState<User | null>(null)
   const toggleComplete = async (todo: User) => {
@@ -15,7 +14,6 @@ export default function TodoItem({ todo }: { todo: User }) {
   };
 console.log(todo)
   const deleteodo = async () => {
-    setLoading(true);
     await deleteTodo(todo._id);
   };
 

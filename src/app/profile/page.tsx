@@ -1,6 +1,7 @@
 // app/profile/page.tsx
 
 import { cookies } from "next/headers";
+import Image from "next/image";
 
 export default function Profile() {
   const cookieStore = cookies();
@@ -15,9 +16,11 @@ export default function Profile() {
       <p className="mb-2"><strong>Email:</strong> {user.email}</p>
       <p className="mb-2"><strong>Phone:</strong> {user.phone}</p>
       {user.photo && (
-        <img
+        <Image
           src={user.photo}
           alt="Profile Photo"
+          width={320}
+          height={320}
           className="w-32 h-32 rounded-full mt-4 object-cover"
         />
       )}

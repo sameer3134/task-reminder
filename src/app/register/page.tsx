@@ -61,8 +61,8 @@ const router = useRouter();
   
       router.push("/");
       window.location.href = "/login";
-    } catch (err: any) {
-      alert(err.message);
+    } catch (err: unknown) {
+      alert(err);
     }
   };
 
