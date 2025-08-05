@@ -34,7 +34,7 @@ export async function updateTodoServer(id: string, title: string, completed: boo
   if (!userId) throw new Error("Unauthorized");
 
   // Optional: Ensure only user's own todo can be updated
-   const updateData: any = { title, completed };
+   const updateData: {title:string, completed: boolean, reminderTime?: Date;} = { title, completed };
   if (reminderTime) updateData.reminderTime = new Date(reminderTime);
   await Todo.findOneAndUpdate({ _id: id, user: userId }, updateData);
 
