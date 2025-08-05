@@ -24,8 +24,8 @@ export default function Login() {
       alert("Login successful");
       router.push("/");
       window.location.href = "/";
-    } catch (err: any) {
-      alert(err.message);
+    } catch (err) {
+      alert(err);
     }
   };
 
