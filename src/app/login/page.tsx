@@ -23,6 +23,7 @@ export default function Login() {
       if (!res.ok) throw new Error(data.error || "Login failed");
       alert("Login successful");
       router.push("/");
+      window.location.href = "/";
     } catch (err: any) {
       alert(err.message);
     }

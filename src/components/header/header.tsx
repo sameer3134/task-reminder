@@ -25,7 +25,7 @@ export default function Header() {
           Logo
         </Link>
  <nav className="flex gap-4">
-          {isLoggedIn ? (
+          {!isLoggedIn ? (
             <>
               <Link href="/login" className="hover:text-gray-300 transition">
                 Login

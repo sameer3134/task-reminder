@@ -5,13 +5,13 @@ import { Todo } from "@/models/todo";
 import { revalidatePath } from "next/cache";
 import { getUserIdFromToken } from "../api/utils/auth";
 
-export async function addTodo(title: string) {
+export async function addTodo(title: string , reminderTime:string ) {
   await connectDB();
-
+  console.log("reminder",reminderTime)
   const userId = getUserIdFromToken();
   if (!userId) throw new Error("Unauthorized");
 
-  await Todo.create({ title, user: userId }); // ✅ associate with user
+  await Todo.create({ title, user: userId ,reminderTime : new Date(reminderTime)}); // ✅ associate with user
   revalidatePath("/");
 }
 
@@ -27,14 +27,16 @@ export async function deleteTodo(id: string) {
   revalidatePath("/");
 }
 
-export async function updateTodoServer(id: string, title: string, completed: boolean) {
+export async function updateTodoServer(id: string, title: string, completed: boolean, reminderTime?:string ) {
   await connectDB();
 
   const userId = getUserIdFromToken();
   if (!userId) throw new Error("Unauthorized");
 
   // Optional: Ensure only user's own todo can be updated
-  await Todo.findOneAndUpdate({ _id: id, user: userId }, { title, completed });
+   const updateData: any = { title, completed };
+  if (reminderTime) updateData.reminderTime = new Date(reminderTime);
+  await Todo.findOneAndUpdate({ _id: id, user: userId }, updateData);
 
   revalidatePath("/");
 }

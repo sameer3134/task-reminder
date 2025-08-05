@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Register() {
@@ -58,11 +58,15 @@ const router = useRouter();
       if (!res.ok) throw new Error(data.error || "Something went wrong");
 
       alert("Registered successfully!");
+  
       router.push("/");
+      window.location.href = "/login";
     } catch (err: any) {
       alert(err.message);
     }
   };
+
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

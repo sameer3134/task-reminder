@@ -26,11 +26,23 @@ export async function POST(req: Request) {
       photo,
     });
 
-    // Create JWT token
+  
+    // Don't send full user (especially password)
+    const res= NextResponse.json({
+      message: "User created successfully",
+      user: {
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        phone: user.phone,
+        photo: user.photo,
+      },
+    }, { status: 201 });
+      // Create JWT token
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "7d" });
 
     // Set cookies
-    const cookieStore = cookies();
+    const cookieStore =await cookies();
     cookieStore.set("token", token, { httpOnly: true });
   cookieStore.set(
   "user",
@@ -48,19 +60,8 @@ export async function POST(req: Request) {
     path: "/",
   }
 );
+return res;
 
-
-    // Don't send full user (especially password)
-    return NextResponse.json({
-      message: "User created successfully",
-      user: {
-        id: user._id,
-        email: user.email,
-        name: user.name,
-        phone: user.phone,
-        photo: user.photo,
-      },
-    }, { status: 201 });
   } catch (err) {
     console.error("User creation error:", err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
