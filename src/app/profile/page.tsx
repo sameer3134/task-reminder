@@ -3,8 +3,8 @@
 import { cookies } from "next/headers";
 import Image from "next/image";
 
-export default function Profile() {
-  const cookieStore = cookies();
+export default async function Profile() {
+  const cookieStore =await cookies();
   const userCookie = cookieStore.get("user")?.value;
   const user = userCookie ? JSON.parse(userCookie) : null;
 
