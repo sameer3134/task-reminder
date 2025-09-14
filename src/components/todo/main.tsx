@@ -17,9 +17,8 @@ export default async function MainPage() {
   let todos:User[] = [];
 
   try {
-    const user = getUserIdFromToken(); // get from cookie directly
+    const user =await getUserIdFromToken(); // get from cookie directly
     const todosRaw = await Todo.find({ user });
-    console.log("m",todosRaw)
     todos = todosRaw.map(todo => ({
       _id: todo._id.toString(),              // Convert ObjectId to string
       title: todo.title,

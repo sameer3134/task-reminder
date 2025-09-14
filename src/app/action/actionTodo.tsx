@@ -8,7 +8,7 @@ import { getUserIdFromToken } from "../api/utils/auth";
 export async function addTodo(title: string , reminderTime:string ) {
   await connectDB();
   console.log("reminder",reminderTime)
-  const userId = getUserIdFromToken();
+  const userId =await getUserIdFromToken();
   if (!userId) throw new Error("Unauthorized");
 
   await Todo.create({ title, user: userId ,reminderTime : new Date(reminderTime)}); // ✅ associate with user
@@ -18,7 +18,7 @@ export async function addTodo(title: string , reminderTime:string ) {
 export async function deleteTodo(id: string) {
   await connectDB();
 
-  const userId = getUserIdFromToken();
+  const userId = await getUserIdFromToken();
   if (!userId) throw new Error("Unauthorized");
 
   // Optional: Validate that the todo belongs to this user before deleting
@@ -30,7 +30,7 @@ export async function deleteTodo(id: string) {
 export async function updateTodoServer(id: string, title: string, completed: boolean, reminderTime?:string ) {
   await connectDB();
 
-  const userId = getUserIdFromToken();
+  const userId =await getUserIdFromToken();
   if (!userId) throw new Error("Unauthorized");
 
   // Optional: Ensure only user's own todo can be updated

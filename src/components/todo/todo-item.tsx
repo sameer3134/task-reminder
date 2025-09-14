@@ -23,7 +23,7 @@ console.log(todo)
         className="text-gray-900"
     
       >
-        {todo.title} {new Date(todo.reminderTime).toLocaleString()}
+        {todo.title} {new Date(todo.reminderTime).toISOString()}
       </span>
       <button onClick={deleteodo} className="text-red-600 hover:text-red-800">
         Delete
